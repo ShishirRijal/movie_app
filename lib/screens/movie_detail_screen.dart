@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/constants.dart';
+import 'package:movie_app/providers/movie.dart';
 
 class MovieDetailScreen extends StatelessWidget {
-  final Map movie;
+  final Movie movie;
   const MovieDetailScreen({
     Key? key,
     required this.movie,
@@ -40,7 +41,7 @@ class MovieDetailScreen extends StatelessWidget {
                                     Colors.black26, BlendMode.darken),
                                 fit: BoxFit.cover,
                                 image: NetworkImage(
-                                  "https://image.tmdb.org/t/p/w500${movie['poster_path']}",
+                                  "https://image.tmdb.org/t/p/w500${movie.imageUrl}",
                                 ),
                               ),
                             ),
@@ -57,67 +58,71 @@ class MovieDetailScreen extends StatelessWidget {
                             ),
                           ),
                           Positioned(
-                            bottom: 70,
+                            bottom: 0,
                             child: Container(
                               padding: const EdgeInsets.all(10.0),
+                              width: mediaQuery.width,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(20.0),
                                 color: Colors.black.withOpacity(0.7),
                               ),
-                              width: mediaQuery.width * 0.8,
-                              child: Text(
-                                movie['title'] ?? movie['name'],
-                                style: kTitleTextStyle,
-                                maxLines: 3,
-                                textAlign: TextAlign.center,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    movie.title,
+                                    style: kTitleTextStyle,
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(height: 10.0),
+                                  Row(
+                                    // crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      buildText(movie.realeaseDate),
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/star.png',
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.centerLeft,
+                                            height: 30.0,
+                                            width: 30.0,
+                                          ),
+                                          const SizedBox(width: 5.0),
+                                          Column(
+                                            // mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text("${movie.rating}/10",
+                                                  style: kInactiveTextStyle),
+                                              Text("${movie.votes} ratings",
+                                                  style: kInactiveTextStyle),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.trending_up,
+                                            size: 30.0,
+                                            color: Colors.green,
+                                          ),
+                                          const SizedBox(width: 5.0),
+                                          Text(
+                                              (movie.popularity)
+                                                  .split('.')
+                                                  .first,
+                                              style: kInactiveTextStyle),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 10,
-                            child: Row(
-                              // crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                buildText((movie['release_date'] ??
-                                        movie['first_air_date'])
-                                    .toString()
-                                    .split('-')
-                                    .first),
-                                SizedBox(width: 20.0),
-                                Image.asset(
-                                  'assets/images/star.png',
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment.centerLeft,
-                                  height: 30.0,
-                                  width: 30.0,
-                                ),
-                                SizedBox(width: 3.0),
-                                Column(
-                                  // mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("${movie['vote_average']}/10",
-                                        style: kInactiveTextStyle),
-                                    Text("${movie['vote_count']} ratings",
-                                        style: kInactiveTextStyle),
-                                  ],
-                                ),
-                                const SizedBox(width: 20.0),
-                                Image.asset(
-                                  'assets/images/popularity.png',
-                                  fit: BoxFit.cover,
-                                  height: 30.0,
-                                  width: 30.0,
-                                ),
-                                SizedBox(width: 3.0),
-                                Text(
-                                    movie['popularity']
-                                        .toString()
-                                        .split('.')
-                                        .first,
-                                    style: kInactiveTextStyle),
-                              ],
                             ),
                           ),
                         ],
@@ -129,7 +134,7 @@ class MovieDetailScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: 25.0),
                         width: mediaQuery.width * 0.75,
                         child: Text(
-                          "${movie['overview']}\n",
+                          "${movie.synopsis}\n\n",
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.white,

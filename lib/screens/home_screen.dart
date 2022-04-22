@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/providers/movies.dart';
 import 'package:movie_app/screens/movies_grid_screen.dart';
-import 'package:movie_app/screens/trial.dart';
+import 'package:provider/provider.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 import '../constants.dart';
+import '../providers/movie.dart';
 import '../widgets/appbar.dart';
+import '../widgets/movie_card.dart';
 import '../widgets/movie_list.dart';
 import '../widgets/underlined_text.dart';
+import 'movie_detail_screen.dart';
 
-// class MovieData {
-//   final String title;
-//   final List movies;
-//   final String option;
-//   MovieData(
-//       {required this.title, required this.movies, this.option = 'See All'});
-// }
+var myMovies = MyMovies();
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -43,33 +40,32 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
 
-    var topRatedMoviesData = await tmdbWithCustomLogs.v3.movies.getTopRated();
-    var upcomingMoviesData = await tmdbWithCustomLogs.v3.movies.getUpcoming();
-    var moviesInTheatreData =
-        await tmdbWithCustomLogs.v3.movies.getNowPlaying();
-    var popularTvShowsData = await tmdbWithCustomLogs.v3.tv.getPopular();
+    //   var topRatedMoviesData = await tmdbWithCustomLogs.v3.movies.topRated();
+    //   var upcomingMoviesData = await tmdbWithCustomLogs.v3.movies.getUpcoming();
+    //   var moviesInTheatreData =
+    //       await tmdbWithCustomLogs.v3.movies.getNowPlaying();
+    //   var popularTvShowsData = await tmdbWithCustomLogs.v3.tv.getPopular();
 
-    setState(() {
-      topRatedMovies = topRatedMoviesData['results'];
-      upcomingMovies = upcomingMoviesData['results'];
-      popularTvShows = popularTvShowsData['results'];
-      nowPlaying = moviesInTheatreData['results'];
-      print(topRatedMoviesData);
-      print("\n\n\n");
-      print(popularTvShows);
-    });
-
-    // var moviesData = [
-    //   MovieData(title: "Now In Cinemas", movies: nowPlaying),
-    //   MovieData(title: "Top Rated", movies: topRatedMovies),
-    //   MovieData(title: "Popular Tv Shows", movies: popularTvShows),
-    //   MovieData(title: "Upcoming", movies: upcomingMovies),
-    // ];
+    //   setState(() {
+    //     topRatedMovies = topRatedMoviesData['results'];
+    //     upcomingMovies = upcomingMoviesData['results'];
+    //     popularTvShows = popularTvShowsData['results'];
+    //     nowPlaying = moviesInTheatreData['results'];
+    //   });
   }
 
   @override
   void initState() {
     getMoviesData();
+    myMovies.fetchMovieData().then((_) {
+      setState(() {
+        topRatedMovies = myMovies.topRatedMovies;
+        popularTvShows = myMovies.popularTvShows;
+        nowPlaying = myMovies.nowPlaying;
+        upcomingMovies = myMovies.upcomingMovies;
+      });
+    });
+    // Provider.of<MyMovies>(context, listen: false);
     super.initState();
   }
 

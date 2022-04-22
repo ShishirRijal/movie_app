@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import '../providers/movie.dart';
 import '../screens/movie_detail_screen.dart';
 
 class MovieCard extends StatelessWidget {
-  final Map movie;
+  final Movie movie;
   // final double imageheight;
   // final double containerwidth;
   const MovieCard({
@@ -41,14 +42,14 @@ class MovieCard extends StatelessWidget {
                 // width: containerwidth * 0.8,
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                  "https://image.tmdb.org/t/p/w500${movie['poster_path']}",
+                  "https://image.tmdb.org/t/p/w500${movie.imageUrl}",
                 ),
               ),
             ),
             SizedBox(
               // width: 120,
               child: Text(
-                movie['title'] ?? movie['name'],
+                movie.title,
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

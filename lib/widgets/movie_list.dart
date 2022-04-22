@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+import '../screens/movie_detail_screen.dart';
 import 'movie_card.dart';
 
 class MovieList extends StatelessWidget {
@@ -16,10 +18,10 @@ class MovieList extends StatelessWidget {
     return movies.isEmpty
         ? const Center(child: CircularProgressIndicator())
         : SizedBox(
-            height: 230.0,
+            height: 220.0,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              physics: const PageScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 return MovieCard(movie: movies[index]);
               },
