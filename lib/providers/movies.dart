@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 import '/providers/movie.dart';
 
-class MyMovies with ChangeNotifier {
+class MyMovies {
   List _topRatedMovies = [];
   List _upcomingMovies = [];
   List _popularTvShows = [];
@@ -59,7 +59,6 @@ class MyMovies with ChangeNotifier {
     });
 
     // return [_nowPlaying, _popularTvShows, _topRatedMovies, _upcomingMovies];
-    notifyListeners();
   }
 
   List<Movie> fetchData(List<dynamic> data) {
