@@ -3,8 +3,6 @@ import 'package:movie_app/constants.dart';
 import 'package:movie_app/screens/movie_detail_screen.dart';
 import 'package:movie_app/widgets/underlined_text.dart';
 
-import '../providers/movie.dart';
-
 class MoviesGridScreen extends StatelessWidget {
   final List moviesData;
   final String title;

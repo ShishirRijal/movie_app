@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/constants.dart';
-import 'package:movie_app/providers/movies.dart';
-import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 
 void main() {

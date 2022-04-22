@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/constants.dart';
-import 'package:movie_app/providers/movie.dart';
+
+import '../models/movie.dart';
 
 class MovieDetailScreen extends StatelessWidget {
   final Movie movie;
@@ -74,7 +75,7 @@ class MovieDetailScreen extends StatelessWidget {
                                     maxLines: 3,
                                     textAlign: TextAlign.center,
                                   ),
-                                  SizedBox(height: 10.0),
+                                  const SizedBox(height: 10.0),
                                   Row(
                                     // crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment:

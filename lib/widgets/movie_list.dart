@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../screens/movie_detail_screen.dart';
 import 'movie_card.dart';
 
 class MovieList extends StatelessWidget {

@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:tmdb_api/tmdb_api.dart';
-import '/providers/movie.dart';
+import '../models/movie.dart';
 
 class MyMovies {
   List _topRatedMovies = [];
@@ -63,6 +62,7 @@ class MyMovies {
 
   List<Movie> fetchData(List<dynamic> data) {
     List<Movie> myList = [];
+    // ignore: avoid_function_literals_in_foreach_calls
     data.forEach((movie) {
       myList.add(
         Movie(

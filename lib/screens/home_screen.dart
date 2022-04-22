@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/providers/movies.dart';
 import 'package:movie_app/screens/movies_grid_screen.dart';
-import 'package:provider/provider.dart';
-import 'package:tmdb_api/tmdb_api.dart';
 import '../constants.dart';
-import '../providers/movie.dart';
+import '../models/movies.dart';
 import '../widgets/appbar.dart';
-import '../widgets/movie_card.dart';
 import '../widgets/movie_list.dart';
 import '../widgets/underlined_text.dart';
-import 'movie_detail_screen.dart';
 
 var myMovies = MyMovies();
 
@@ -20,43 +15,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  ////
-  static const String apiKey = "a0bcfbc8c44fb27ad1b30cfeaa07687b";
-  static const String readAccessToken =
-      "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMGJjZmJjOGM0NGZiMjdhZDFiMzBjZmVhYTA3Njg3YiIsInN1YiI6IjYyNjBmZDRlN2ZjYWIzMDA2NjZiMmY1YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.L08KTjg79_80s8tQDTkW0eSUR2o0B4ZSyEHIvZpUuFE";
-  final url = Uri.parse(
-      'https://api.themoviedb.org/3/movie/550?api_key=a0bcfbc8c44fb27ad1b30cfeaa07687b');
   List topRatedMovies = [];
   List upcomingMovies = [];
   List popularTvShows = [];
   List nowPlaying = [];
-  // List<MovieData> moviesData = []; ////
-  void getMoviesData() async {
-    final tmdbWithCustomLogs = TMDB(
-      ApiKeys(apiKey, readAccessToken),
-      logConfig: const ConfigLogger(
-        showLogs: true,
-        showErrorLogs: true,
-      ),
-    );
-
-    //   var topRatedMoviesData = await tmdbWithCustomLogs.v3.movies.topRated();
-    //   var upcomingMoviesData = await tmdbWithCustomLogs.v3.movies.getUpcoming();
-    //   var moviesInTheatreData =
-    //       await tmdbWithCustomLogs.v3.movies.getNowPlaying();
-    //   var popularTvShowsData = await tmdbWithCustomLogs.v3.tv.getPopular();
-
-    //   setState(() {
-    //     topRatedMovies = topRatedMoviesData['results'];
-    //     upcomingMovies = upcomingMoviesData['results'];
-    //     popularTvShows = popularTvShowsData['results'];
-    //     nowPlaying = moviesInTheatreData['results'];
-    //   });
-  }
 
   @override
   void initState() {
-    getMoviesData();
     myMovies.fetchMovieData().then((_) {
       setState(() {
         topRatedMovies = myMovies.topRatedMovies;
