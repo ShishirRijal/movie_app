@@ -13,17 +13,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MyMovies>(
-      create: (context) => MyMovies(),
-      child: MaterialApp(
-        // color: kPrimaryColor,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark().copyWith(
-          backgroundColor: kPrimaryColor,
-          primaryColor: kPrimaryColor,
-        ),
-        home: const HomeScreen(),
+    return MaterialApp(
+      // color: kPrimaryColor,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        backgroundColor: kPrimaryColor,
+        primaryColor: kPrimaryColor,
       ),
+      home: const HomeScreen(),
     );
   }
 }
